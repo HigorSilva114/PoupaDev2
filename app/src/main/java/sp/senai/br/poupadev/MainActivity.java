@@ -1,6 +1,8 @@
 package sp.senai.br.poupadev;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,5 +22,9 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+    public void adicionar(View c){
+        Intent it = new Intent(MainActivity.this, Transacoes.class);
+
     }
 }
