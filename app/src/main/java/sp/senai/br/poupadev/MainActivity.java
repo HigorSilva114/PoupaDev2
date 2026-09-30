@@ -25,6 +25,6 @@ public class MainActivity extends AppCompatActivity {
     }
     public void adicionar(View c){
         Intent it = new Intent(MainActivity.this, Transacoes.class);
-
+        startActivity(it);
     }
 }
