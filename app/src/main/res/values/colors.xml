@@ -7,4 +7,6 @@
     <color name="corMeio">#CCf9b300</color>
     <color name="corFim">#DDffd204</color>
     <color name="bordaCor">#DDffe200</color>
+    <color name="botaoCadastrar">#BB27F531</color>
+    <color name="botaoCancelar">#BBF54D27</color>
 </resources>
