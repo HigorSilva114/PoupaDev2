@@ -37,6 +37,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etValor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColorHint="@color/black" />
@@ -56,6 +57,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etDescricao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -74,6 +76,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etTipo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -86,7 +89,7 @@
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
             android:backgroundTint="@color/botaoCadastrar"
-            android:onClick="cadastro"
+            android:onClick="cadastrar"
             android:text="Cadastrar"
             android:textColor="@color/black"
             android:textSize="16sp"

@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
@@ -13,6 +14,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class Transacoes extends AppCompatActivity {
+    EditText etDescricao,etValor,etTipo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +26,13 @@ public class Transacoes extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        etDescricao = findViewById(R.id.etDescricao);
+        etTipo = findViewById(R.id.etTipo);
+        etValor = findViewById(R.id.etValor);
+
+    }
+    public void cadastrar(View ca){
+        BancoController crud = new BancoController(this);
     }
     public void cancelar(View c){
         AlertDialog.Builder cancelAlert = new AlertDialog.Builder(this);
