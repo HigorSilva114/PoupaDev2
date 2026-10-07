@@ -18,8 +18,10 @@
         android:background="@drawable/borda"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout"
@@ -62,31 +64,43 @@
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout3"
-            android:layout_width="0dp"
+        <RadioGroup
+            android:id="@+id/rgTipo"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
-            android:background="@color/white"
-            android:hint="Tipo: Entrada ou Saída"
+            android:background="@drawable/borderprincipal"
+            android:orientation="horizontal"
+            android:padding="9sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etTipo"
+            <RadioButton
+                android:id="@+id/rbEntrada"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:paddingLeft="5sp"
+                android:text="Entrada"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/rbSaida"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Saída"
+                android:textSize="20sp" />
+        </RadioGroup>
 
         <Button
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
             android:backgroundTint="@color/botaoCadastrar"
             android:onClick="cadastrar"
@@ -95,14 +109,14 @@
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
+            app:layout_constraintTop_toBottomOf="@+id/rgTipo" />
 
         <Button
             android:id="@+id/button3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
             android:backgroundTint="@color/botaoCancelar"
             android:onClick="cancelar"

@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -15,7 +17,10 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class Transacoes extends AppCompatActivity {
-    EditText etDescricao,etValor,etTipo;
+    EditText etDescricao,etValor;
+    RadioGroup rgTipo;
+    RadioButton rbEntrada,rbSaida;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,14 +33,15 @@ public class Transacoes extends AppCompatActivity {
             return insets;
         });
         etDescricao = findViewById(R.id.etDescricao);
-        etTipo = findViewById(R.id.etTipo);
+        rgTipo = findViewById(R.id.rgTipo);
+        rbEntrada = findViewById(R.id.rbEntrada);
+        rbSaida = findViewById(R.id.rbSaida);
         etValor = findViewById(R.id.etValor);
 
     }
     public void cadastrar(View ca){
         BancoController crud = new BancoController(this);
         String descricao = etDescricao.getText().toString();
-        String tipo = etTipo.getText().toString();
         String valor = etValor.getText().toString();
         String resultado;
         if (valor.isEmpty()){
@@ -46,11 +52,12 @@ public class Transacoes extends AppCompatActivity {
             etDescricao.setError("Campo DESCRIÇÃO precisa ser preenchido");
             etDescricao.requestFocus();
             return;
-        }else if (tipo.isEmpty()) {
-            etTipo.setError("Campo TIPO precisa ser preenchido");
-            etTipo.requestFocus();
-            return;
         }
+        String tipo = "Entrada";
+        if (rbSaida.isChecked()){
+            tipo = "Saida";
+        }
+
         float valor1 = Float.parseFloat(valor);
         resultado = crud.insereDados(descricao,tipo,valor1);
         Toast.makeText(this,resultado,Toast.LENGTH_LONG).show();
