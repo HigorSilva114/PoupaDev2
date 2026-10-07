@@ -35,4 +35,32 @@ public class BancoController {
         db.close();
         return cursor;
     }
+    public Cursor carregaDadosId(int id){
+        String[] campos = {financas.ID,financas.DESCRICAO, financas.VALOR, financas.TIPO};
+        String sWhere = CriaBanco.ID+"="+id;
+        db = financas.getReadableDatabase();
+        Cursor cursor = db.query(financas.TABELA, campos, sWhere,null,null,null,null,null);
+        if (cursor!=null){
+            cursor.moveToFirst();
+        }
+        db.close();
+        return cursor;
+    }
+    public void alterarDados(int id, String descricao, String tipo, double valor){
+        ContentValues valores = new ContentValues();
+        String sWhere = CriaBanco.ID+"="+id;
+        db = financas.getWritableDatabase();
+        valores.put(CriaBanco.DESCRICAO, descricao);
+        valores.put(CriaBanco.TIPO, tipo);
+        valores.put(CriaBanco.VALOR, valor);
+        db.update(CriaBanco.TABELA, valores, sWhere,null);
+        db.close();
+
+    }
+    public void apagarDados(int id){
+        String sWhere = CriaBanco.ID+"="+id;
+        db = financas.getReadableDatabase();
+        db.delete(CriaBanco.TABELA, sWhere, null);
+        db.close();
+    }
 }

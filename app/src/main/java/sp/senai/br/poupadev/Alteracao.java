@@ -2,6 +2,7 @@ package sp.senai.br.poupadev;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -18,9 +19,11 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class Alteracao extends AppCompatActivity {
 
-    EditText etDescricao, etValor;
-    RadioGroup rgTipo;
-    RadioButton rbEntrada, rbSaida;
+    EditText etDescricaoA, etValorA;
+    RadioGroup rgTipoA;
+    RadioButton rbEntradaA, rbSaidaA;
+    String sCodigo;
+    Cursor cursor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,50 +35,51 @@ public class Alteracao extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        etDescricao = findViewById(R.id.etDescricao);
-        rgTipo = findViewById(R.id.rgTipo);
-        rbEntrada = findViewById(R.id.rbEntrada);
-        rbSaida = findViewById(R.id.rbSaida);
-        etValor = findViewById(R.id.etValor);
+        etDescricaoA = findViewById(R.id.etDescricao);
+        rgTipoA = findViewById(R.id.rgTipo);
+        rbEntradaA = findViewById(R.id.rbEntrada);
+        rbSaidaA = findViewById(R.id.rbSaida);
+        etValorA = findViewById(R.id.etValor);
+        BancoController crud = new BancoController(this);
+        sCodigo = this.getIntent().getStringExtra("CODIGO");
+        cursor = crud.carregaDadosId(Integer.parseInt(sCodigo));
+        etDescricaoA.setText(cursor.getString(cursor.getColumnIndexOrThrow(CriaBanco.DESCRICAO)));
+        etValorA.setText(cursor.getString(cursor.getColumnIndexOrThrow(CriaBanco.VALOR)));
+        String tipo = cursor.getString(cursor.getColumnIndexOrThrow(CriaBanco.TIPO));
+        if ("Entrada".equalsIgnoreCase(tipo)) {
+            rbEntradaA.setChecked(true);
+            tipo = rbEntradaA.getText().toString();
+        } else if ("Saida".equalsIgnoreCase(tipo)) {
+            rbSaidaA.setChecked(true);
+            tipo = rbSaidaA.getText().toString();
+        }
     }
 
     public void Alterar(View a) {
+        int selectedId = rgTipoA.getCheckedRadioButtonId();
+        String tipo = "";
+        if (selectedId != -1) {
+            RadioButton rbSelecionado = findViewById(selectedId);
+            tipo = rbSelecionado.getText().toString();
+        }
         BancoController crud = new BancoController(this);
-        String descricao = etDescricao.getText().toString();
-        String valor = etValor.getText().toString();
-        String resultado;
-        if (valor.isEmpty()) {
-            etValor.setError("Campo VALOR precisa ser preenchido");
-            etValor.requestFocus();
-            return;
-        } else if (descricao.isEmpty()) {
-            etDescricao.setError("Campo DESCRIÇÃO precisa ser preenchido");
-            etDescricao.requestFocus();
-            return;
-        }
-        String tipo = "Entrada";
-        if (rbSaida.isChecked()) {
-            tipo = "Saida";
-        }
-
-        double valor1 = Double.parseDouble(valor);
-        resultado = crud.insereDados(descricao, tipo, valor1);
-        Toast.makeText(this, resultado, Toast.LENGTH_LONG).show();
+        crud.alterarDados(Integer.parseInt(sCodigo), etDescricaoA.getText().toString(),  tipo, Double.parseDouble(etValorA.getText().toString()));
         Intent it = new Intent(Alteracao.this, MainActivity.class);
-        it.putExtra("VALOR", valor1);
-        it.putExtra("DESCRICAO", descricao);
-        it.putExtra("TIPO", tipo);
         startActivity(it);
+        finish();
     }
 
-    public void cancelar(View c) {
+    public void excluir(View c) {
+        BancoController crud = new BancoController(this);
         AlertDialog.Builder cancelAlert = new AlertDialog.Builder(this);
-        cancelAlert.setTitle("Cancelar Operação?");
+        cancelAlert.setTitle("Deseja Excluir Realmente?");
         cancelAlert.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                crud.apagarDados(Integer.parseInt(sCodigo));
                 Intent it = new Intent(Alteracao.this, MainActivity.class);
                 startActivity(it);
+                finish();
             }
         });
         cancelAlert.setNegativeButton("Não", new DialogInterface.OnClickListener() {
