@@ -38,17 +38,17 @@ public class Transacoes extends AppCompatActivity {
         String tipo = etTipo.getText().toString();
         String valor = etValor.getText().toString();
         String resultado;
-        if (descricao.isEmpty()){
+        if (valor.isEmpty()){
+            etValor.setError("Campo VALOR precisa ser preenchido");
+            etValor.requestFocus();
+            return;
+        } else if (descricao.isEmpty()) {
             etDescricao.setError("Campo DESCRIÇÃO precisa ser preenchido");
             etDescricao.requestFocus();
             return;
-        } else if (tipo.isEmpty()) {
+        }else if (tipo.isEmpty()) {
             etTipo.setError("Campo TIPO precisa ser preenchido");
             etTipo.requestFocus();
-            return;
-        } else if (valor.isEmpty()) {
-            etValor.setError("Campo EDITORA precisa ser preenchido");
-            etValor.requestFocus();
             return;
         }
         float valor1 = Float.parseFloat(valor);
