@@ -62,6 +62,9 @@ public class Transacoes extends AppCompatActivity {
         resultado = crud.insereDados(descricao,tipo,valor1);
         Toast.makeText(this,resultado,Toast.LENGTH_LONG).show();
         Intent it = new Intent(Transacoes.this, MainActivity.class);
+        it.putExtra("VALOR", valor1);
+        it.putExtra("DESCRICAO", descricao);
+        it.putExtra("TIPO", tipo);
         startActivity(it);
     }
     public void cancelar(View c){
