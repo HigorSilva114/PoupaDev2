@@ -15,11 +15,15 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     TextView tvValor;
     ListView lvDados;
+    DecimalFormat df;
+    double resultado;
+    double valor2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +35,23 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        resultado = 0;
+        df = new DecimalFormat("R$ ###,##0.00");
         tvValor = findViewById(R.id.tvValor);
         lvDados = findViewById(R.id.lvDados);
+        Bundle extras = getIntent().getExtras();
+        String descricao = extras.getString("DESCRICAO",null);
+        float valor = extras.getFloat("VALOR",0);
+        String tipo = extras.getString("TIPO",null);
+        if (tipo.equals("Entrada")){
+            valor2 = resultado + valor;
+            tvValor.setText(df.format(valor2));
+            return;
+        } else if (tipo.equals("Saida")) {
+            valor2 = resultado - valor;
+            tvValor.setText(df.format(valor2));
+            return;
+        }
 
         lvDados = findViewById(R.id.lvDados);
         BancoController crud = new BancoController(this);
@@ -64,7 +83,5 @@ public class MainActivity extends AppCompatActivity {
     public void adicionar(View c){
         Intent it = new Intent(MainActivity.this, Transacoes.class);
         startActivity(it);
-
-
     }
 }
