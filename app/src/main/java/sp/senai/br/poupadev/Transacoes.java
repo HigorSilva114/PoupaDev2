@@ -53,12 +53,12 @@ public class Transacoes extends AppCompatActivity {
             etDescricao.requestFocus();
             return;
         }
+
         String tipo = "Entrada";
         if (rbSaida.isChecked()){
             tipo = "Saida";
         }
-
-        double valor1 = Float.parseFloat(valor);
+        double valor1 = Double.parseDouble(valor);
         resultado = crud.insereDados(descricao,tipo,valor1);
         Toast.makeText(this,resultado,Toast.LENGTH_LONG).show();
         Intent it = new Intent(Transacoes.this, MainActivity.class);

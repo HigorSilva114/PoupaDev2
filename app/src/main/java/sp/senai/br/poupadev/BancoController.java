@@ -11,7 +11,7 @@ public class BancoController {
     public BancoController(Context ctx){
         financas = new CriaBanco(ctx);
     }
-    public String insereDados(String descricao, String tipo, Double valor){
+    public String insereDados(String descricao, String tipo, double valor){
         db = financas.getWritableDatabase();
         ContentValues valores = new ContentValues();
         valores.put(financas.DESCRICAO, descricao);
