@@ -2,6 +2,7 @@ package sp.senai.br.poupadev;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 public class BancoController {
@@ -23,5 +24,15 @@ public class BancoController {
         }else {
             return "Dados inserido com sucesso!";
         }
+    }
+    public Cursor carregaDados(){
+        String[] campos = {financas.ID,financas.VALOR,financas.TIPO};
+        db = financas.getReadableDatabase();
+        Cursor cursor = db.query(financas.TABELA, campos, null,null,null,null,null,null);
+        if (cursor!=null){
+            cursor.moveToFirst();
+        }
+        db.close();
+        return cursor;
     }
 }
