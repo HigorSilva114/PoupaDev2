@@ -39,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
         Cursor cursor = crud.carregaDados();
 
 
-        String[] nomeCampos = {CriaBanco.id,CriaBanco.titulo};
-        int[] idComponentes={R.id.tvId,R.id.tvTitulo};
+        String[] nomeCampos = {CriaBanco.ID,CriaBanco.VALOR,CriaBanco.TIPO};
+        int[] idComponentes={R.id.tvId,R.id.tvValor1,R.id.tvTipo};
 
         SimpleCursorAdapter adpt = new SimpleCursorAdapter(this,R.layout.exibicao, cursor,nomeCampos,idComponentes,0);
 
@@ -51,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String sCodigo;
                 cursor.moveToPosition(i);
-                sCodigo = cursor.getString(cursor.getColumnIndexOrThrow(CriaBanco.id));
-                Intent it = new Intent(consulta.this, Alteracao.class);
+                sCodigo = cursor.getString(cursor.getColumnIndexOrThrow(CriaBanco.ID));
+                Intent it = new Intent(MainActivity.this, Alteracao.class);
                 it.putExtra("CODIGO", sCodigo);
                 startActivity(it);
                 finish();
